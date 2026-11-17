@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>交互式 3D 帆船教学系统</title>
+</head>
+<body>
+  <!-- 3D 画布挂载点 -->
+  <div id="scene-container"></div>
+
+  <!-- 顶部标题 -->
+  <header id="title-bar">
+    <h1>⛵ 交互式 3D 帆船教学系统</h1>
+    <p>拖拽旋转 · 滚轮缩放 · 右键平移 · 点击部件查看讲解</p>
+  </header>
+
+  <!-- 左侧固定控制面板 -->
+  <aside id="control-panel" class="panel">
+    <section>
+      <h2>视图与模式</h2>
+      <div class="btn-row">
+        <button id="btn-xray" class="toggle-btn" type="button">透视模式：关</button>
+        <button id="btn-auto-rotate" class="toggle-btn" type="button">自动环绕：关</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>航行模拟</h2>
+      <div class="btn-row">
+        <button id="btn-sim" class="toggle-btn active" type="button">模拟：运行中</button>
+        <button id="btn-reset" type="button">重置</button>
+      </div>
+
+      <!-- 风向罗盘：箭头指向风"吹来"的方向 -->
+      <div class="wind-compass" title="风向（风吹来的方向，0° 为船头方向）">
+        <div id="wind-arrow">↑</div>
+        <span class="compass-n">N</span>
+      </div>
+
+      <label class="slider-label">
+        风向 <span id="wind-dir-value">90°</span>
+        <small>（风吹来的方向，0°=正船头）</small>
+        <input id="wind-dir" type="range" min="0" max="360" step="1" value="90" />
+      </label>
+
+      <label class="slider-label">
+        风速 <span id="wind-speed-value">12 m/s</span>
+        <input id="wind-speed" type="range" min="0" max="30" step="0.5" value="12" />
+      </label>
+
+      <div class="state-readout">
+        <div>航行状态：<strong id="point-of-sail">横风航行</strong></div>
+        <div>主帆转角：<strong id="main-trim">--°</strong></div>
+        <div>船体侧倾：<strong id="heel-angle">--°</strong></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>部件目录（点击讲解）</h2>
+      <ul id="part-list"></ul>
+    </section>
+  </aside>
+
+  <!-- 右侧部件讲解面板 -->
+  <aside id="info-panel" class="panel">
+    <div id="info-placeholder">
+      <h2>部件讲解</h2>
+      <p>在 3D 场景中点击任意帆船部件，<br />或从左侧目录选择，即可查看该部件的<br /><b>作用</b>与<b>航行原理</b>讲解。</p>
+    </div>
+    <div id="info-card" hidden>
+      <button id="info-close" type="button" title="关闭">✕</button>
+      <h2 id="info-name"></h2>
+      <p id="info-en"></p>
+      <h3>🔧 部件作用</h3>
+      <p id="info-role"></p>
+      <h3>🌬️ 航行原理</h3>
+      <p id="info-principle"></p>
+      <h3>💡 知识要点</h3>
+      <p id="info-tip"></p>
+    </div>
+  </aside>
+
+  <!-- 加载提示 -->
+  <div id="loading">正在初始化 3D 场景…</div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
